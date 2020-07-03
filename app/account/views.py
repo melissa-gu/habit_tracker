@@ -271,21 +271,3 @@ def join_from_invite(user_id, token):
             user=new_user,
             invite_link=invite_link)
     return redirect(url_for('main.index'))
-
-
-@account.before_app_request
-def before_request():
-    """Force user to confirm email before accessing login-required routes."""
-    if current_user.is_authenticated \
-            and not current_user.confirmed \
-            and request.endpoint[:8] != 'account.' \
-            and request.endpoint != 'static':
-        return redirect(url_for('account.unconfirmed'))
-
-
-@account.route('/unconfirmed')
-def unconfirmed():
-    """Catch users with unconfirmed emails."""
-    if current_user.is_anonymous or current_user.confirmed:
-        return redirect(url_for('main.index'))
-    return render_template('account/unconfirmed.html')

@@ -99,22 +99,8 @@
   <div class="ui grid">
     <div class="four wide column">
       <div class="ui vertical fluid tabular menu">
-        <a class="active item">
-          Bio
-        </a>
-        <a class="item">
-          Pics
-        </a>
-        <a class="item">
-          Companies
-        </a>
-        <a class="item">
-          Links
-        </a>
+        {{ header_items(current_user) }}
+        {{ account_items(current_user) }}
       </div>
     </div>
-    <!-- <nav class="ui navigation grid {% if endpoints %}has-submenu{% endif %}">
-        {{ mobile_nav(current_user, dropdown=dropdown) }}
-        {{ desktop_nav(current_user, dropdown=dropdown) }}
-    </nav> -->
 {% endmacro %}
