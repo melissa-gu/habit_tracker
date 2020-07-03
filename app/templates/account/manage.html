@@ -29,8 +29,6 @@
 {% endmacro %}
 
 {% block content %}
-    <div class="twelve wide stretched column">
-        <div class="ui stackable grid container">
             <div class="twelve wide column">
                 <h2 class="ui header">
                     Account Settings
@@ -49,8 +47,6 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
-    </div>
     
     {{ check.password_check('new_password', 0) }}
 {% endblock %}

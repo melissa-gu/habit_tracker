@@ -35,8 +35,13 @@
         {% endblock %}
 
         {# When extended, the content block contains all the html of the webpage #}
-        {% block content %}
-        {% endblock %}
+          <div class="content twelve wide stretched column">
+            <div class="ui stackable grid container">
+              {% block content %}
+              {% endblock %}
+            </div>
+          </div>
+        
 
         
 
