@@ -30,25 +30,23 @@
 
 {% block content %}
     <div class="twelve wide stretched column">
-        <div class="ui segment">
-            <div class="ui stackable centered grid container">
-                <div class="twelve wide column">
-                    <h2 class="ui header">
-                        Account Settings
-                        <div class="sub header">Manage your account settings and change your login information.</div>
-                    </h2>
+        <div class="ui stackable grid container">
+            <div class="twelve wide column">
+                <h2 class="ui header">
+                    Account Settings
+                    <div class="sub header">Manage your account settings and change your login information.</div>
+                </h2>
+            </div>
+            <div class="stretched divided very relaxed row">
+                <div class="four wide column">
+                    {{ navigation(endpoints) }}
                 </div>
-                <div class="stretched divided very relaxed row">
-                    <div class="four wide column">
-                        {{ navigation(endpoints) }}
-                    </div>
-                    <div class="eight wide column">
-                        {% if form %}
-                            {{ f.render_form(form, extra_classes='fluid') }}
-                        {% else %}
-                            {{ user_info(user) }}
-                        {% endif %}
-                    </div>
+                <div class="eight wide column">
+                    {% if form %}
+                        {{ f.render_form(form, extra_classes='fluid') }}
+                    {% else %}
+                        {{ user_info(user) }}
+                    {% endif %}
                 </div>
             </div>
         </div>
