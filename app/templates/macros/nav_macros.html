@@ -20,11 +20,17 @@
 #}
 
 {% macro header_items(current_user) %}
-    {% set endpoints = [
-      ('main.daily', 'Daily', 'sun outline'),
-      ('main.monthly', 'Monthly', 'calendar'),
-      ('main.habits', 'Habits', 'inbox')
-    ]%}
+    {% if current_user.is_authenticated %}
+      {% set endpoints = [
+        ('main.daily', 'Daily', 'sun outline'),
+        ('main.monthly', 'Monthly', 'calendar'),
+        ('main.habits', 'Habits', 'inbox')
+      ]%}
+    {% else %}
+        {% set endpoints = [
+          ('main.index', config.APP_NAME, 'home')
+        ]%}
+    {% endif %}
     {{ render_menu_items( endpoints ) }}
 {% endmacro %}
 

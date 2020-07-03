@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, redirect
 
+from flask_login import current_user
+
 from app.models import EditableHTML
 
 main = Blueprint('main', __name__)
@@ -7,7 +9,13 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return redirect('/daily')
+    if current_user.is_authenticated:
+        return redirect('/daily')
+    else:
+        editable_html_obj = EditableHTML.get_editable_html('index')
+        return render_template(
+            'main/index.html', editable_html_obj=editable_html_obj)
+    
 
 @main.route('/daily')
 def daily():
