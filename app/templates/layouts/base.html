@@ -31,12 +31,13 @@
         {% block nav %}
           {# add dropdown variable here to the render_nav method to render dropdowns #}
           {{ nav.render_nav(current_user) }}
+          <!-- {% include 'partials/_flashes.html' %} -->
+          {# When extended, the content block contains all the html of the webpage #}
+          {% block content %}
+          {% endblock %}
         {% endblock %}
 
-        {% include 'partials/_flashes.html' %}
-        {# When extended, the content block contains all the html of the webpage #}
-        {% block content %}
-        {% endblock %}
+        
 
         {# Implement CSRF protection for site #}
         {% if csrf_token()|safe %}
