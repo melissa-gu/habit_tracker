@@ -45,6 +45,16 @@ class Role(db.Model):
         return '<Role \'%s\'>' % self.name
 
 
+class Habit(db.Model):
+    __tablename__ = 'habits'
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String(64), unique=True)
+    complete = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return '<Habit \'%s\'>' % self.description()
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

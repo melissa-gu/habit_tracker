@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block content %}
+<div class="twelve wide stretched column">
+  <div class="ui text container">
+      <h1>Add Habit</h1>
+      {% set flashes = {
+        'error':   get_flashed_messages(category_filter=['form-error']),
+        'warning': get_flashed_messages(category_filter=['form-check-email']),
+        'info':    get_flashed_messages(category_filter=['form-info']),
+        'success': get_flashed_messages(category_filter=['form-success'])
+    } %}
+      {{ f.begin_form(form, flashes)}}
+        <div class="two fields">
+            {{ f.render_form_field(form.description) }}
+            {{ f.render_form_field(form.complete) }}
+            {{ f.render_form_field(form.submit)}}
+        </div>
+      {{ f.end_form(form) }}
+  </div>
+</div>
+{% endblock %}

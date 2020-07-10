@@ -4,6 +4,13 @@
 <div class="twelve wide stretched column">
   <div class="ui text container">
       <h1>Habits</h1>
+      <a href="/add-habit">Add habit</a>
+      <div class="menu">
+        <div class="item" data-value="">Name</div>
+        {% for h in habits %}
+            <div class="item" data-value="{{ h.description }}">{{ h.description }}</div>
+        {% endfor %}
+    </div>
   </div>
 </div>
 {% endblock %}
