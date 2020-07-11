@@ -3,6 +3,7 @@ from flask_login import AnonymousUserMixin, UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import BadSignature, SignatureExpired
 from werkzeug.security import check_password_hash, generate_password_hash
+from sqlalchemy.orm import relationship
 
 from .. import db, login_manager
 
@@ -50,6 +51,7 @@ class Habit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(64), unique=True)
     complete = db.Column(db.Boolean, default=False)
+    parent_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return '<Habit \'%s\'>' % self.description()
@@ -64,6 +66,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    habits = relationship("Habit")
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)

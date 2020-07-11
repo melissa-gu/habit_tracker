@@ -36,9 +36,7 @@ def monthly():
 @main.route('/habits')
 def habits():
     editable_html_obj = EditableHTML.get_editable_html('habits')
-    habits = Habit.query.all() 
-    for h in habits:
-        print("HABIT: ", h.description)
+    habits = current_user.habits
     return render_template(
         'main/habits.html', editable_html_obj=editable_html_obj, habits=habits)
 
@@ -47,7 +45,7 @@ def add_habit():
     form = HabitForm()
     
     if form.validate_on_submit():
-        habit = Habit(description=form.description.data, complete=form.complete.data)
+        habit = Habit(description=form.description.data, complete=form.complete.data, parent_id=current_user.id)
         db.session.add(habit)
         db.session.commit()
         return redirect('/habits')
