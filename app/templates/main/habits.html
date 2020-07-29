@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+
 <div class="twelve wide stretched column">
   <div class="ui text container">
       <h1>Habits</h1>
@@ -8,7 +9,7 @@
 
       {% for h in habits %}
         <div class="ui segment">
-          <p>{{ h.description }}</p>
+          <a href="/habit/{{h.description}}"> {{h.description}}</a>
         </div>
       {% endfor %}
   </div>

@@ -59,3 +59,7 @@ def add_habit():
         db.session.commit()
         return redirect('/habits')
     return render_template('main/add_habit.html', form=form)
+
+@main.route('/habit/<curr_habit>', methods=['GET', 'POST'])
+def view_habit(curr_habit):
+    return render_template('main/habit_info.html', habit=curr_habit)
