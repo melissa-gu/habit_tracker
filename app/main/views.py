@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, request
 
 from flask_login import current_user
 
@@ -6,7 +6,7 @@ from app.models import EditableHTML
 from app.main.forms import HabitForm
 from app.models import Habit
 
-from app import db
+from app import db, csrf
 
 main = Blueprint('main', __name__)
 
@@ -21,11 +21,20 @@ def index():
             'main/index.html', editable_html_obj=editable_html_obj)
     
 
-@main.route('/daily')
+@csrf.exempt
+@main.route('/daily', methods=['GET', 'POST'])
 def daily():
-    editable_html_obj = EditableHTML.get_editable_html('daily')
+    editable_html_obj = EditableHTML.get_editable_html('daily') 
+    
+    if request.method == 'POST':
+        data = request.get_json()
+        id = int(data['id'])
+        habit = Habit.query.get(id)
+        habit.complete = data['complete']
+        db.session.commit()
+    habits = current_user.habits
     return render_template(
-        'main/daily.html', editable_html_obj=editable_html_obj)
+        'main/daily.html', editable_html_obj=editable_html_obj, habits=habits)
 
 @main.route('/monthly')
 def monthly():

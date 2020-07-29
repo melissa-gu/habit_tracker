@@ -5,9 +5,39 @@
     <div class="twelve wide stretched column">
         <div class="ui text container">
             <h1>Daily</h1>
-            {{ page.render_inline_editor(editable_html_obj, current_user) }}
+            
+            {% for h in habits %}
+                <div class="ui segment">
+                    <div class="ui checkbox">
+                        <input type="checkbox" name="example" id={{ h.id }} {% if h.complete %} checked {% endif %}>
+                        <label>{{ h.description }}</label>
+                      </div>
+                </div>
+            {% endfor %}
+
         </div>
     </div>
+
+    <script type=text/javascript>
+        $(function() {
+            $('input').click(function(){
+                var habitObj = {"id": this.id, "complete": this.checked};
+                $.ajax({
+                    type: 'POST',
+                    url: "/daily",
+                    data: JSON.stringify(habitObj),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
    
 
     <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
